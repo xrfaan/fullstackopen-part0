@@ -1,5 +1,6 @@
 # fundamentals of web apps
 
+## notes
 - images are fetched as they are met by the browser while rendering the document received as `Response` from the server.
   - other assets-stylesheets, scripts--are fetched in the same way.
 - requests are typed: `document`, `script`, `stylesheet`, `xhr`
@@ -24,7 +25,7 @@ browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note body="
 
 activate server
 
-Note left of server: https://studies.cs.helsinki.fi/exampleapp/new_note creates a new note and adds it to the list of notes
+Note left of server: /new_note creates a new note and adds it to the list of notes
 
 server->>browser: 302 redirect to https://studies.cs.helsinki.fi/exampleapp/notes
 
@@ -80,3 +81,60 @@ Note right of browser: The browser calls the callback function to render the not
 
 browser->>user: formatted list of notes with new note appended
 ```
+
+## spa diagram
+
+```mermaid
+sequenceDiagram
+
+participant browser
+participant server
+
+
+browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+
+activate server
+
+server-->>browser: HTML document
+
+deactivate server
+
+
+
+browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+
+activate server
+
+server-->>browser: stylesheet
+
+deactivate server
+
+
+
+browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+
+activate server
+
+server-->>browser: SPA Javascript file
+
+deactivate server
+
+
+Note right of browser: execution of the JavaScript code begins to fetch notes from the server
+
+
+
+browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+
+activate server
+
+server-->>browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ]
+
+deactivate server
+
+
+
+Note right of browser: The browser calls the callback function to render the notes
+
+```
+
