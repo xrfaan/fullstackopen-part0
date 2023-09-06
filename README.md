@@ -138,3 +138,33 @@ Note right of browser: The browser calls the callback function to render the not
 
 ```
 
+
+## new note with spa diagram
+
+```mermaid
+sequenceDiagram
+
+participant user
+
+participant browser
+
+participant server
+
+
+
+user->>browser: create note: "hello note app"
+
+Note left of browser: Browser calls onsubmit callback of form
+
+browser->>user: formatted list of notes with new note appended
+
+browser->>server: POST /new_note {"content":"hello note app", "date":"some date"}
+
+activate server
+
+Note left of server: /new_note creates a new note and adds it to the server's list of notes
+
+server->>browser: 201 Created
+
+deactivate server
+```
